@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Supplies furniture</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Supplies furniture</h1>
+<h4>Поставки мебели</h4>
+<form th:action="@{/supplies}" th:method="GET" th:object="${supply}">
+    <label for="search">Поиск по дате поставки мебели: </label>
+    <input type="date" th:field="*{dateOfSupplies}" id="search"/>
+    <button type="submit">Поиск</button>
+</form>
+
+<div th:unless="${supplies.isEmpty()}">
+    <table>
+        <tr>
+            <th>Дата поставки</th>
+            <th>Ф.И.О.</th>
+            <th>Подробная инф.</th>
+        </tr>
+        <tr th:each="supply : ${supplies}">
+            <td th:text="${supply.dateOfSupplies}"></td>
+            <td th:if="${supply.staff != null}" th:text="${supply.staff.fullName}"></td>
+            <td th:unless="${supply.staff != null}" th:text="'Работник уволен'"></td>
+            <td><a th:href="@{/supplies/{id_supplies}(id_supplies=${supply.getId_supplies()})}">Подробнее...</a></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${supplies.isEmpty()}">
+    <h3>В указанную дату поставки не производились</h3>
+</div>
+
+<div th:if="${staff.isManager()}">
+    <h3>Начать поставку мебели</h3>
+    <form th:action="@{/supplies/startCreate}" th:method="GET">
+        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Поставить мебель</button>
+    </form>
+</div>
+
+
+</body>
+</html>

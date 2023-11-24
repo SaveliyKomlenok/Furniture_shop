@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin panel on Furniture shop</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Staff</h1>
+<h4 th:text="'Работник(ца) ' + ${staff.fullName}"></h4>
+
+<b>Логин: </b><span th:text="${staff.login}"></span><br>
+<b>Номер телефона: </b><span th:text="${staff.phoneNumber}"></span><br>
+<b>Дата создания акк.: </b><span th:text="${staff.dateOfCreated}"></span><br>
+<b>Активность: </b><span th:if="${staff.active}">Разблокирован(а)</span>
+<span th:unless="${staff.active}">Заблокирован(а)</span><br>
+<b>Роль:</b>
+<span th:each="role : ${staff.getJobTitles()}">
+    <span th:text="${role}"></span>
+</span><br>
+
+<div th:if="${!staff.isAdmin()}">
+    <form th:action="@{/admin/staff/ban/{idStaff}(idStaff=${staff.getIdStaff()})}" th:method="POST">
+        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+        <div th:if="${staff.active}">
+            <button type="submit">Заблокировать</button>
+        </div>
+        <div th:unless="${staff.active}">
+            <button type="submit">Разблокировать</button>
+        </div>
+    </form>
+</div>
+
+<div th:if="${!staff.isAdmin()}">
+    <form th:action="@{/admin/staff/edit/{idStaff}(idStaff=${staff.getIdStaff()})}" th:method="GET">
+        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Редактировать</button>
+    </form>
+</div>
+
+<div th:if="${!staff.isAdmin()}">
+    <form th:action="@{/staff/delete/{idStaff}(idStaff=${staff.getIdStaff()})}" th:method="POST">
+        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+
+<form th:action="@{/staff}" th:method="GET">
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Назад</button>
+</form>
+<br>
+</body>
+</html>

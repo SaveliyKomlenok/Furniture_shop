@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Furniture store</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a th:href="@{/}"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Furniture</h1>
+<h4>Подробная информация о мебели</h4>
+<b>Название мебели: </b><span th:text="${furniture.nameOfFurniture}"></span><br>
+<b>Количество мебели: </b><span th:text="${furniture.amountOfFurniture}"></span><br>
+<b>Цена: </b><span th:text="${furniture.priceOfFurniture}"></span><br>
+<b>Размеры: </b><span th:text="${furniture.size.length}"></span>Х<span th:text="${furniture.size.width}"></span>Х<span
+        th:text="${furniture.size.height}"></span><br>
+<b>Номер комнаты: </b><span th:text="${furniture.rooms.nameOfRoom}"></span><br>
+<b>Наименование изготовителя: </b><span th:text="${furniture.manufacturer.nameOfManufacturer}"></span><br>
+<div th:if="${staff.isManager()}">
+    <form th:method="POST" th:action="@{/furniture/delete/{id_furniture}(id_furniture=${furniture.getId_furniture()})}">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+
+<!--<form th:method="GET" th:action="@{/furniture}">-->
+<!--    <input type="hidden" name="_csrf" value="${_csrf.token}">-->
+<!--    <button type="submit">Назад</button>-->
+<!--</form>-->
+<!--<br>-->
+</body>
+</html>

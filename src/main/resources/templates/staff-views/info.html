@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Staff</h1>
+<h4>Подробная информация о пользователе</h4>
+<b>ФИО: </b><span th:text="${staff.fullName}"/><br>
+<b>Логин: </b><span th:text="${staff.fullName}"/><br>
+<b>Номер телефона работника: </b><span th:text="${staff.fullName}"/><br>
+<div th:if="${staff.isUser()}">
+    <form th:action="@{/admin/staff/hire}" th:method="POST">
+        <input type="hidden" th:value="${staff.idStaff}" th:name="idStaff">
+        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Нанять</button>
+    </form>
+</div>
+</body>
+<form th:action="@{/staff}" th:method="GET">
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Назад</button>
+</form>
+<br>
+</html>

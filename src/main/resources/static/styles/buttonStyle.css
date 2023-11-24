@@ -1,0 +1,49 @@
+/*button.logout {*/
+/*    transform-style: preserve-3d;*/
+/*}*/
+
+/*button.logout {*/
+/*    border-radius: 5px;*/
+/*    transition: all 500ms ease;*/
+/*}*/
+
+/*button.logout:after {*/
+/*    top: -100%;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    position: absolute;*/
+/*    content: 'Уверены?';*/
+/*    transform-origin: left bottom;*/
+/*    transform: rotateX(90deg);*/
+/*}*/
+
+/*button.logout:hover {*/
+/*    transform-origin: center bottom;*/
+/*    transform: rotateX(-90deg) translateY(100%);*/
+/*}*/
+
+button{
+    border-radius: 5px;
+    border-color: #d94854;
+    box-sizing: border-box;
+    position: relative;
+}
+
+button:hover{
+    box-shadow: 0px 0px 4px 0px #ff000f;
+}
+
+button:hover:before {
+    width: 100%;
+}
+
+button:before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 18px;
+    background: rgba(217, 72, 84, 0.4);
+    transition: all 1s ease;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sale creation</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Sale creation</h1>
+<h4>Продажа мебели</h4>
+
+<div>
+    <form th:action="@{/sales/addFurniture}" th:method="POST" th:object="${furniture}">
+        <label for="furniture">Мебель: </label>
+        <select th:field="*{id_furniture}" id="furniture">
+            <option th:each="furniture : ${furnitures}" th:value="${furniture.id_furniture}" th:text="${furniture.nameOfFurniture}"></option>
+        </select><br>
+
+        <span th:if="${availableAmount}" th:text="'Осталось: ' + ${availableAmount}"></span><br>
+
+        <label for="amount">Количество мебели на продажу: </label>
+        <input type="number" min="1" max="50" step="1" th:field="*{amountOfFurniture}" id="amount"/><br><br>
+        <div style="float: left">
+            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+            <button type="submit">Добавить мебель в продажу</button>
+        </div>
+    </form>
+
+    <div th:unless="${newSale.soldFurnitureToSales.isEmpty()}" style="float: left">
+        <form th:action="@{/sales/save}" th:method="POST">
+            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+            <button type="submit">Продать выбранный товар(ы)</button>
+        </form>
+    </div>
+
+    <div style="float: left">
+        <form th:action="@{/sales}" th:method="GET">
+            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+            <button type="submit">Назад</button>
+        </form>
+    </div>
+
+</div>
+<br><br>
+<div th:unless="${newSale.soldFurnitureToSales.isEmpty()}">
+    <table>
+        <tr>
+            <th>Название мебели</th>
+            <th>Количество</th>
+            <th>Удаление</th>
+        </tr>
+        <tr th:each="newSoldFurniture : ${newSale.soldFurnitureToSales}">
+            <td><a th:href="@{/furniture/{id_furniture}(id_furniture=${newSoldFurniture.furniture.getId_furniture()})}" style="color: #c668ff"
+                   th:text="${newSoldFurniture.furniture.nameOfFurniture}"></a></td>
+            <td th:text="${newSoldFurniture.amount}"></td>
+            <td><a th:href="@{/sales/delete/{newSoldFurniture_index}(newSoldFurniture_index=${newSoldFurniture.furniture.getId_furniture()})}" style="color: #ff1524"> Удалить </a></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${newSale.soldFurnitureToSales.isEmpty()}">
+    <h3>Добавьте мебель в продажи</h3>
+</div>
+
+</body>
+</html>

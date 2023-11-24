@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff edit</title>
+    <link rel="stylesheet"  type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet"  type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Редактирование работника</h1>
+<h3 th:text="${staff.fullName}"></h3>
+<form th:action="@{/admin/staff/edit}" method="POST" th:object="${staff}">
+    <div th:each="role : ${jobTitles}">
+        <input type="radio" id="choose" name="1" th:field="*{jobTitles}" th:value="${role}">
+        <label for="choose" th:text="${role}"></label>
+    </div>
+<input type="hidden" th:value="${staff.idStaff}" th:name="idStaff">
+<input type="hidden" th:value="${_csrf.token}" th:name="_csrf"><br>
+<button type="submit">Подтвердить</button>
+</form>
+
+<form th:action="@{/staff}" th:method="GET">
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Назад</button>
+</form>
+<br>
+
+</body>
+</html>

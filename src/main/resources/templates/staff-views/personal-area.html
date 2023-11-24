@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Personal area</h1>
+<h4>Личный кабинет</h4>
+<b>ФИО: </b><span th:text="${staff.getFullName()}"/><br>
+<b>Логин: </b><span th:text="${staff.getLogin()}"/><br>
+<b>Номер телефона: </b><span th:text="${staff.getPhoneNumber()}"/><br>
+<form th:action="@{/staff/{idStaff}/startOwnEdit(idStaff=${staff.getIdStaff()})}" th:method="GET">
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Редактировать данные</button>
+</form>
+</body>
+</html>

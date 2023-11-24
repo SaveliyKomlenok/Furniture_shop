@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Furniture store</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<h3>Добавление мебели</h3>
+<form th:method="POST" th:action="@{/furniture/create}" th:object="${furniture}">
+
+    <label for="name">Название мебели: </label>
+    <input type="text" th:field="*{nameOfFurniture}" id="name" required/>
+    <div style="color: red" th:if="${#fields.hasErrors('nameOfFurniture')}" th:errors="*{nameOfFurniture}">Name error</div>
+    <br>
+
+    <label for="price">Цена: </label>
+    <input type="number" min="3" max="5000" th:field="*{priceOfFurniture}" id="price" step="0.01" required/>
+    <div style="color: red" th:if="${#fields.hasErrors('priceOfFurniture')}" th:errors="*{priceOfFurniture}">Name error</div>
+    <br>
+
+    <label for="size">Размеры мебели: </label>
+    <select th:object="${furniture.size}" th:field="*{id_size}" id="size">
+        <option disabled selected value=""> Выберите размеры </option>
+        <option th:each="size : ${sizes}" th:value="${size.getId_size()}"
+                th:text="${size.getLength()} + 'X' +
+                         ${size.getWidth()} + 'X' +
+                         ${size.getLength()}"></option>
+    </select><br>
+
+    <label for="rooms">Комната в которой должна находится мебель: </label>
+    <select th:object="${furniture.rooms}" th:field="*{id_rooms}" id="rooms">
+        <option disabled selected value=""> Выберите комнату </option>
+        <option th:each="room : ${rooms}" th:value="${room.getId_rooms()}"
+                th:text="${room.getNameOfRoom()}"></option>
+    </select><br>
+
+    <label for="manufacturer">Изготовитель: </label>
+    <select th:object="${furniture.manufacturer}" th:field="*{id_manufacturer}" id="manufacturer">
+        <option disabled selected value=""> Выберите изготовителя </option>
+        <option th:each="maufacturer : ${manufacturers}" th:value="${maufacturer.getId_manufacturer()}"
+                th:text="${maufacturer.getNameOfManufacturer()}"></option>
+    </select><br>
+
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Добавить</button>
+</form>
+
+<form th:method="GET" th:action="@{/furniture}">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <button type="submit">Назад</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Hire</h1>
+<h4>Нанять пользователя(ей) на работу</h4>
+<form th:action="@{/staff}" th:method="GET">
+    <label for="search">Поиск по ФИО: </label>
+    <input type="text" th:value="${fullNameForSearch}" name="fullNameForSearch" id="search"/>
+    <button type="submit">Поиск</button>
+</form>
+
+<div th:unless="${staffs.isEmpty()}">
+    <table>
+        <tr>
+            <th>Номер<br>пользователя</th>
+            <th>Ф.И.О.</th>
+            <th>Номер телефона</th>
+            <th>Нанять <br>на работу</th>
+        </tr>
+        <tr th:each="staff : ${allStaffs}" th:if="${staff.isUser()}">
+            <td th:text="${staff.idStaff}"></td>
+            <td th:text="${staff.fullName}"></td>
+            <td th:text="${staff.phoneNumber}"></td>
+            <td>
+                <div th:if="${staff.isUser()}">
+                    <form th:action="@{/admin/staff/hire}" th:method="POST" th:object="${staff}">
+                        <input type="hidden" th:value="${staff.idStaff}" th:name="idStaff">
+                        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                        <button type="submit">Нанять</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${staffs.isEmpty()}">
+    <h3>Пользователей нет</h3>
+</div>
+
+<form th:action="@{/staff}" th:method="GET">
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Назад</button>
+</form>
+<br>
+</body>
+</html>

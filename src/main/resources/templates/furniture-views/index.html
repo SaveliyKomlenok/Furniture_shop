@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Furniture store</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Furniture</h1>
+<h4>Мебельный магазин</h4>
+<form th:method="GET" th:action="@{/furniture}">
+    <label for="name">Поиск по названию мебели: </label>
+    <input type="text" th:value="${nameOfFurnitureForSearch}" name="nameOfFurnitureForSearch" id="name"/>
+    <button type="submit">Поиск</button>
+</form>
+
+<div th:if="${!furnitures.isEmpty()}">
+    <table>
+        <tr>
+            <th>Название мебели</th>
+            <th>Цена мебели(руб.)</th>
+            <th>Подробная информация о мебели</th>
+            <th th:if="${staff.isManager()}">Ред. информации</th>
+        </tr>
+        <tr th:each="furniture : ${furnitures}">
+            <td th:text="${furniture.nameOfFurniture}">name value</td>
+            <td th:text="${furniture.priceOfFurniture}">price value</td>
+            <td><a th:href="@{/furniture/{id_furniture}(id_furniture=${furniture.getId_furniture()})}">Подробнее...</a></td>
+            <td th:if="${staff.isManager()}"><a th:href="@{/furniture/{id_furniture}/edit(id_furniture=${furniture.getId_furniture()})}">Редактировать</a></td>
+        </tr>
+    </table>
+</div>
+<div th:if="${furnitures.isEmpty()}">
+    <h3>Мебели нет</h3>
+</div>
+
+<div th:if="${staff.isManager()}">
+    <form th:method="GET" th:action="@{/furniture/new}">
+        <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Добавить мебель</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Supply info</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+</head>
+<body>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
+<h1>Supply</h1>
+<h4>Подробная информация о поставке</h4>
+
+<div th:unless="${supply.suppliedFurnitureToSupplies.isEmpty()}">
+    <table>
+        <tr>
+            <th>Название мебели</th>
+            <th>Кол-во поставленной<br>мебели</th>
+        </tr>
+        <tr th:each="suppliedFurniture : ${supply.suppliedFurnitureToSupplies}">
+            <td th:text="${suppliedFurniture.id.furniture.nameOfFurniture}"></td>
+            <td th:text="${suppliedFurniture.amount}"></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${supply.suppliedFurnitureToSupplies.isEmpty()}">
+    <h3>Мебель не поставлялась</h3>
+</div>
+
+<form th:action="@{/supplies}" th:method="GET">
+    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Назад</button>
+</form>
+<br>
+</body>
+</html>
