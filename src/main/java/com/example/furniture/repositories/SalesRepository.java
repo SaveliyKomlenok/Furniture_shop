@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SalesRepository extends JpaRepository<Sales, Long> {
-    List<Sales> findByDateOfSalesContaining(String date);
+    List<Sales> findByDateOfSalesStartingWith(String date);
 }

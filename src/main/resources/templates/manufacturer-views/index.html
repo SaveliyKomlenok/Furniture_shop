@@ -2,9 +2,11 @@
 <html lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Furniture store</title>
-    <link rel="stylesheet"  type="text/css" href="/static/styles/tableStyle.css">
-    <link rel="stylesheet"  type="text/css" href="/static/styles/backgroundForPages.css">
-    <link rel="stylesheet"  type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -12,8 +14,7 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Manufacturers</h1>
-<h4>Изготовители</h4>
+<h1>Изготовители</h1>
 <form th:method="GET" th:action="@{/manufacturer}">
     <label for="search">Поиск по наименованию изготовителя: </label>
     <input type="text" th:value="${nameOfManufacturerForSearch}" name="nameOfManufacturerForSearch" id="search"/>
@@ -23,16 +24,17 @@
 <div th:if="${!manufacturers.isEmpty()}">
     <table>
         <tr>
-            <th>Наименование<br>изготовителя</th>
+            <th>Наименование изготовителя</th>
             <th>Номер телефона</th>
-            <th>Подробная инф.</th>
-            <th th:if="${staff.isManager()}">Редактирование инф.</th>
+            <th th:if="${staff.isManager()}" class="th_edit">Ред. инф.</th>
         </tr>
-        <tr th:each="manufacturer : ${manufacturers}">
-            <td th:text="${manufacturer.nameOfManufacturer}"></td>
+        <tr th:each="manufacturer : ${manufacturers}" class="tr_body">
+            <td><a th:href="@{/manufacturer/{id_manufacturer}(id_manufacturer=${manufacturer.getId_manufacturer()})}"
+                   th:text="${manufacturer.nameOfManufacturer}"></a></td>
             <td th:text="${manufacturer.phoneNumberOfManufacturer}"></td>
-            <td><a th:href="@{/manufacturer/{id_manufacturer}(id_manufacturer=${manufacturer.getId_manufacturer()})}">Подробнее...</a></td>
-            <td th:if="${staff.isManager()}"><a th:href="@{/manufacturer/{id_manufacturer}/edit(id_manufacturer=${manufacturer.getId_manufacturer()})}">Редактировать</a></td>
+            <td th:if="${staff.isManager()}"><a
+                    th:href="@{/manufacturer/{id_manufacturer}/edit(id_manufacturer=${manufacturer.getId_manufacturer()})}"><img
+                    src="/static/styles/editIcon.png"></a></td>
         </tr>
     </table>
 </div>

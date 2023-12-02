@@ -15,7 +15,7 @@ public class RoomsService {
     private final RoomsRepository roomsRepository;
 
     public List<Rooms> listRooms(String nameOfRoom){
-        if(nameOfRoom != null) return roomsRepository.findRoomsByNameOfRoomContaining(nameOfRoom);
+        if(nameOfRoom != null) return roomsRepository.findRoomsByNameOfRoomStartingWith(nameOfRoom);
         return roomsRepository.findAll();
     }
 

@@ -77,7 +77,7 @@ public class StaffController {
 
     @GetMapping("/login-error")
     public String checkLogin(){
-        return "login-error";
+        return "authorization-views/login-error";
     }
 
     @GetMapping("/registration")

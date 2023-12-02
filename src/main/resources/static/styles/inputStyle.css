@@ -1,0 +1,27 @@
+input {
+    width: 200px;
+    padding: 6px 10px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: Candara, serif;
+    font-size: 14px;
+}
+
+input:focus {
+
+}
+
+select {
+    width: 200px;
+    padding: 6px 10px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: Candara, serif;
+    font-size: 14px;
+}
+
+select.decorated option:hover {
+    box-shadow: 0 0 10px 100px #d94854 inset;
+}

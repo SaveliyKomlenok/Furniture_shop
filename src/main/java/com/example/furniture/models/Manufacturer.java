@@ -25,7 +25,7 @@ public class Manufacturer {
     private String nameOfManufacturer;
 
     @Column(name = "address_of_manufacturer")
-    @Pattern(regexp = "^(г\\.[А-ЯЁа-яё]+\\sул\\.[А-ЯЁа-яё]+\\sд\\.\\d+)", message = "Некорректный адрес, введите адрес в формате:г.ГОРОД ул.УЛИЦА д.НОМЕР")
+    @Pattern(regexp = "^(г\\.[А-ЯЁа-яё]+\\sул\\.[А-ЯЁа-яё]+\\sд\\.\\d+)", message = "Некорректный адрес, введите адрес в формате:г.Город ул.Улица д.Номер")
     private String addressOfManufacturer;
 
     @Column(name = "phone_number_of_manufacturer")

@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -12,8 +14,7 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Furniture</h1>
-<h4>Мебельный магазин</h4>
+<h1>Мебель</h1>
 <form th:method="GET" th:action="@{/furniture}">
     <label for="name">Поиск по названию мебели: </label>
     <input type="text" th:value="${nameOfFurnitureForSearch}" name="nameOfFurnitureForSearch" id="name"/>
@@ -22,17 +23,19 @@
 
 <div th:if="${!furnitures.isEmpty()}">
     <table>
-        <tr>
+        <tr class="tr_head">
             <th>Название мебели</th>
-            <th>Цена мебели(руб.)</th>
-            <th>Подробная информация о мебели</th>
-            <th th:if="${staff.isManager()}">Ред. информации</th>
+            <th>Цена мебели(BYN)</th>
+            <th th:if="${staff.isManager()}" class="th_edit">Ред. инф.</th>
         </tr>
-        <tr th:each="furniture : ${furnitures}">
-            <td th:text="${furniture.nameOfFurniture}">name value</td>
+        <tr th:each="furniture : ${furnitures}" class="tr_body">
+            <td><a th:href="@{/furniture/{id_furniture}(id_furniture=${furniture.getId_furniture()})}"
+                   th:text="${furniture.nameOfFurniture}"></a></td>
             <td th:text="${furniture.priceOfFurniture}">price value</td>
-            <td><a th:href="@{/furniture/{id_furniture}(id_furniture=${furniture.getId_furniture()})}">Подробнее...</a></td>
-            <td th:if="${staff.isManager()}"><a th:href="@{/furniture/{id_furniture}/edit(id_furniture=${furniture.getId_furniture()})}">Редактировать</a></td>
+            <td th:if="${staff.isManager()}">
+                <a th:href="@{/furniture/{id_furniture}/edit(id_furniture=${furniture.getId_furniture()})}"><img
+                        src="/static/styles/editIcon.png"></a>
+            </td>
         </tr>
     </table>
 </div>

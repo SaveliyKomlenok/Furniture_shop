@@ -6,18 +6,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-
 public class FurnitureService {
     private final FurnitureRepository furnitureRepository;
 
     public List<Furniture> listFurniture(String nameOfFurniture){
-        if(nameOfFurniture != null) return furnitureRepository.findFurnitureByNameOfFurnitureContaining(nameOfFurniture);
+        if(nameOfFurniture != null) return furnitureRepository.findFurnitureByNameOfFurnitureStartingWith(nameOfFurniture);
         return furnitureRepository.findAll();
+    }
+
+    public List<Furniture> sortFurnitureByName(List<Furniture> furnitureList, boolean isSorted){
+        if(isSorted){
+            furnitureList.sort(Comparator.comparing(Furniture::getNameOfFurniture));
+        }
+        return furnitureList;
     }
 
     public void saveFurniture(Furniture furniture){

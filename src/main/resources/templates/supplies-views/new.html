@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -13,17 +14,18 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Supply creation</h1>
-<h4>Поставка мебели</h4>
+<h3>Поставка мебели</h3>
 
 <div>
     <form th:action="@{/supplies/addFurniture}" th:method="POST" th:object="${furniture}">
-        <label for="furniture">Мебель: </label>
+        <label for="furniture">Мебель</label><br>
         <select th:field="*{id_furniture}" id="furniture">
-            <option th:each="furniture : ${furnitures}" th:value="${furniture.id_furniture}" th:text="${furniture.nameOfFurniture}"></option>
+            <option selected disabled value=""> Выберите мебель </option>
+            <option th:each="furniture : ${furnitures}" th:value="${furniture.id_furniture}"
+                    th:text="${furniture.nameOfFurniture}"></option>
         </select><br><br>
 
-        <label for="amount">Количество мебели для поставки: </label>
+        <label for="amount">Количество мебели для поставки</label><br>
         <input type="number" min="1" max="50" step="1" th:field="*{amountOfFurniture}" id="amount"/><br><br>
 
         <div style="float: left">
@@ -48,17 +50,20 @@
 </div>
 <br><br>
 <div th:unless="${supply.suppliedFurnitureToSupplies.isEmpty()}">
-    <table>
+    <table class="add_table">
         <tr>
             <th>Название мебели</th>
-            <th>Количество</th>
-            <th>Удаление</th>
+            <th class="th_edit">Количество</th>
+            <th class="th_edit">Удаление</th>
         </tr>
-        <tr th:each="newSuppliedFurniture : ${supply.suppliedFurnitureToSupplies}">
-            <td><a th:href="@{/furniture/{id_furniture}(id_furniture=${newSuppliedFurniture.furniture.getId_furniture()})}" style="color: #c668ff"
+        <tr th:each="newSuppliedFurniture : ${supply.suppliedFurnitureToSupplies}" class="tr_body">
+            <td>
+                <a th:href="@{/furniture/{id_furniture}(id_furniture=${newSuppliedFurniture.furniture.getId_furniture()})}"
                    th:text="${newSuppliedFurniture.furniture.nameOfFurniture}"></a></td>
             <td th:text="${newSuppliedFurniture.amount}"></td>
-            <td><a th:href="@{/supplies/delete/{newSuppliedFurniture_index}(nnewSuppliedFurniture_index=${newSuppliedFurniture.furniture.getId_furniture()})}" style="color: #ff1524"> Удалить </a></td>
+            <td>
+                <a th:href="@{/supplies/delete/{newSuppliedFurniture_index}(newSuppliedFurniture_index=${newSuppliedFurnitureStat.index})}"><img
+                        src="/styles/deleteIcon.png" height="25" width="25" alt=""/></a></td>
         </tr>
     </table>
 </div>

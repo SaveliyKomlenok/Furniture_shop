@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -12,8 +13,7 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Hire</h1>
-<h4>Нанять пользователя(ей) на работу</h4>
+<h3>Нанять пользователя(ей) на работу</h3>
 <form th:action="@{/staff}" th:method="GET">
     <label for="search">Поиск по ФИО: </label>
     <input type="text" th:value="${fullNameForSearch}" name="fullNameForSearch" id="search"/>
@@ -22,14 +22,12 @@
 
 <div th:unless="${staffs.isEmpty()}">
     <table>
-        <tr>
-            <th>Номер<br>пользователя</th>
+        <tr class="">
             <th>Ф.И.О.</th>
             <th>Номер телефона</th>
             <th>Нанять <br>на работу</th>
         </tr>
-        <tr th:each="staff : ${allStaffs}" th:if="${staff.isUser()}">
-            <td th:text="${staff.idStaff}"></td>
+        <tr th:each="staff : ${allStaffs}" th:if="${staff.isUser()}" class="tr_body">
             <td th:text="${staff.fullName}"></td>
             <td th:text="${staff.phoneNumber}"></td>
             <td>

@@ -2,9 +2,11 @@
 <html lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Furniture store</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -12,8 +14,7 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Rooms</h1>
-<h4>Комнаты</h4>
+<h1>Комнаты</h1>
 <form th:method="GET" th:action="@{/rooms}">
     <label for="search">Поиск по названию комнаты: </label>
     <input type="text" th:value="${nameOfRoomForSearch}" name="nameOfRoomForSearch" id="search"/>
@@ -22,14 +23,15 @@
 <div th:if="${!rooms.isEmpty()}">
     <table>
         <tr>
-            <th>Номер<br>комнаты</th>
+            <th>Номер комнаты</th>
             <th>Название комнаты</th>
-            <th th:if="${staff.isManager()}">Редактирование инф.</th>
+            <th th:if="${staff.isManager()}" class="th_edit">Ред. инф.</th>
         </tr>
-        <tr th:each="room : ${rooms}">
+        <tr th:each="room : ${rooms}" class="tr_body">
             <td th:text="${room.getId_rooms()}"></td>
             <td th:text="${room.getNameOfRoom()}"></td>
-            <td th:if="${staff.isManager()}"><a th:href="@{/rooms/{id_rooms}/edit(id_rooms=${room.getId_rooms()})}">Редактирование</a>
+            <td th:if="${staff.isManager()}"><a th:href="@{/rooms/{id_rooms}/edit(id_rooms=${room.getId_rooms()})}"><img
+                    src="/static/styles/editIcon.png"></a>
             </td>
         </tr>
     </table>
@@ -37,7 +39,7 @@
     <div th:if="${staff.isManager()}">
         <form th:method="POST" th:action="@{/rooms/delete}" th:object="${room}">
             <label for="delete">Введите номер комнаты для удаления: </label>
-            <input type="number" th:field="*{id_rooms}" style="width: 55px" id="delete" required/>
+            <input type="number" th:field="*{id_rooms}" style="width: 100px" id="delete" required/>
 
             <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
             <button type="submit">Удалить</button>
@@ -54,7 +56,7 @@
 <div th:if="${staff.isManager() || staff.isSeller()}">
     <h3>Добавить новую комнату</h3>
     <form th:method="POST" th:action="@{/rooms/create}" th:object="${room}">
-        <label for="create">Название комнаты: </label>
+        <label for="create">Название</label><br>
         <input type="text" th:field="*{nameOfRoom}" id="create" required/>
 
         <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">

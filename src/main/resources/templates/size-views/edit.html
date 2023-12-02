@@ -4,6 +4,7 @@
     <title>Furniture store</title>
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -17,17 +18,17 @@
 
     <div style="color: red" th:if="${#fields.hasErrors('length')}" th:errors="*{length}">Name error</div>
 
-    <label for="length">Длина мебели: </label>
-    <input type="number" min="10" max="500" step="1" th:field="*{length}" style="width: 55px" id="length" required/>
+    <label for="length">Длина</label><br>
+    <input type="number" min="10" max="500" step="1" th:field="*{length}" style="width: 100px" id="length" required/>
     <br>
 
-    <label for="width">Ширина мебели: </label>
-    <input type="number" min="10" max="500" step="1" th:field="*{width}" style="width: 55px" id="width" required/>
+    <label for="width">Ширина</label><br>
+    <input type="number" min="10" max="500" step="1" th:field="*{width}" style="width: 100px" id="width" required/>
     <div style="color: red" th:if="${#fields.hasErrors('width')}" th:errors="*{width}">Name error</div>
     <br>
 
-    <label for="height">Высота мебели: </label>
-    <input type="number" min="10" max="500" step="1" th:field="*{height}" style="width: 55px" id="height" required/>
+    <label for="height">Высота</label><br>
+    <input type="number" min="10" max="500" step="1" th:field="*{height}" style="width: 100px" id="height" required/>
     <div style="color: red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Name error</div>
     <br>
 

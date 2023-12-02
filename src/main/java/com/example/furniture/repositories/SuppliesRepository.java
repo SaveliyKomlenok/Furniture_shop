@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SuppliesRepository extends JpaRepository<Supplies, Long> {
-    List<Supplies> findByDateOfSuppliesContaining(String date);
+    List<Supplies> findByDateOfSuppliesStartingWith(String date);
 }

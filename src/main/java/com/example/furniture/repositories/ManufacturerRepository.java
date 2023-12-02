@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long> {
-    List<Manufacturer> findManufacturerByNameOfManufacturerContaining(String nameOfManufacturer);
+    List<Manufacturer> findManufacturerByNameOfManufacturerStartingWith(String nameOfManufacturer);
 
     Manufacturer findManufacturerByNameOfManufacturerAndAddressOfManufacturerAndPhoneNumberOfManufacturer(String nameOfManufacturer,
                                                                                                           String addressOfManufacturer,

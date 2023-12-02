@@ -26,11 +26,12 @@ public class FurnitureController {
     private final FurnitureValidator furnitureValidator;
 
     @GetMapping()
-    public String furniture(@RequestParam (name = "nameOfFurnitureForSearch", required = false) String nameOfFurniture, Model model, Principal principal) {
-        model.addAttribute("furnitures", furnitureService.listFurniture(nameOfFurniture));
+    public String furniture(@RequestParam (name = "nameOfFurnitureForSearch", required = false) String nameOfFurniture,
+                            @RequestParam (name = "isSorted", required = false) Boolean isSorted,
+                            Model model, Principal principal) {
+        model.addAttribute("furnitures", furnitureService.sortFurnitureByName(furnitureService.listFurniture(nameOfFurniture), isSorted));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
         model.addAttribute("nameOfFurnitureForSearch", nameOfFurniture);
-        //return "furniture";
         return "furniture-views/index";
     }
 
@@ -38,7 +39,6 @@ public class FurnitureController {
     public String furnitureInfo(@PathVariable Long id_furniture, Model model, Principal principal) {
         model.addAttribute("furniture", furnitureService.getFurnitureById(id_furniture));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
-        //return "furniture-info";
         return "furniture-views/info";
     }
 

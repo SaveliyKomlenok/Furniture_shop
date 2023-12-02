@@ -2,9 +2,11 @@
 <html lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Staff</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -12,10 +14,9 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Staff</h1>
-<h4>Работники</h4>
+<h1>Работники</h1>
 <form th:action="@{/staff}" th:method="GET">
-    <label for="search">Поиск по ФИО</label>
+    <label for="search">Поиск по ФИО: </label>
     <input type="text" th:value="${fullNameForSearch}" name="fullNameForSearch" id="search"/>
     <button type="submit">Поиск</button>
 </form>
@@ -23,16 +24,12 @@
 <div th:unless="${staffs.isEmpty()}">
     <table>
         <tr>
-            <th>Номер<br>работника</th>
             <th>Ф.И.О.</th>
             <th>Номер телефона</th>
-            <th>Подробная инф.</th>
         </tr>
-        <tr th:each="staff : ${staffs}" th:unless="${staff.isUser()}">
-            <td th:text="${staff.idStaff}"></td>
-            <td th:text="${staff.fullName}"></td>
+        <tr th:each="staff : ${staffs}" th:unless="${staff.isUser()}" class="tr_body">
+            <td><a th:href="@{/admin/{idStaff}(idStaff=${staff.getIdStaff()})}" th:text="${staff.fullName}"></a></td>
             <td th:text="${staff.phoneNumber}"></td>
-            <td><a th:href="@{/admin/{idStaff}(idStaff=${staff.getIdStaff()})}">Подробнее...</a></td>
         </tr>
     </table>
 </div>

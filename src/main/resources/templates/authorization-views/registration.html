@@ -4,6 +4,7 @@
     <title>Registration</title>
     <link rel="stylesheet"  type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet"  type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -11,26 +12,25 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Registration</h1>
-<h4>Регистрация</h4>
+<h1>Регистрация</h1>
 <form th:method="POST" th:action="@{/registration}" th:object="${staff}">
 
-    <label for="FIO">ФИО пользователя: </label>
+    <label for="FIO">ФИО пользователя </label><br>
     <input type="text" th:field="*{fullName}" id="FIO" required/>
     <div style="color: red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name error</div>
     <br>
 
-    <label for="login">Логин: </label>
-    <input type="text" th:field="*{login}" id="login" required/>
+    <label for="login">Логин </label><br>
+    <input type="text" maxlength="20" th:field="*{login}" id="login" required/>
     <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name error</div>
     <br>
 
-    <label for="password">Пароль: </label>
+    <label for="password">Пароль </label><br>
     <input type="password" th:field="*{password}" id="password" required/>
     <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name error</div>
     <br>
 
-    <label for="phoneNumber">Номер телефона: </label>
+    <label for="phoneNumber">Номер телефона </label><br>
     <input type="text" th:field="*{phoneNumber}" id="phoneNumber" required/>
     <div style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Name error</div>
     <br>

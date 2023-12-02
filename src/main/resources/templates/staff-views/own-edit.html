@@ -4,6 +4,8 @@
     <title>Own edit</title>
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -16,17 +18,17 @@
 <br>
 <form th:method="POST" th:action="@{/staff/{idStaff}/ownEdit(idStaff=${staff.getIdStaff()})}" th:object="${staff}">
 
-    <label for="name">ФИО: </label>
+    <label for="name">ФИО</label><br>
     <input type="text" th:field="*{fullName}" id="name" required/>
     <div style="color: red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name error</div>
     <br>
 
-    <label for="login">Логин: </label>
+    <label for="login">Логин</label><br>
     <input type="text" th:field="*{login}" id="login" required/>
     <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name error</div>
     <br>
 
-    <label for="phoneNumber">Номер телефона: </label>
+    <label for="phoneNumber">Номер телефона</label><br>
     <input type="text" th:field="*{phoneNumber}" id="phoneNumber" required/>
     <div style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Name error</div>
     <br>

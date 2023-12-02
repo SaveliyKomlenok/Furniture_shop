@@ -15,7 +15,7 @@ public class ManufacturerService {
     private final ManufacturerRepository manufacturerRepository;
 
     public List<Manufacturer> listManufacturer(String nameOfManufacturer){
-        if(nameOfManufacturer != null) return manufacturerRepository.findManufacturerByNameOfManufacturerContaining(nameOfManufacturer);
+        if(nameOfManufacturer != null) return manufacturerRepository.findManufacturerByNameOfManufacturerStartingWith(nameOfManufacturer);
         return manufacturerRepository.findAll();
     }
 

@@ -16,7 +16,7 @@
 <form th:action="@{/admin/staff/edit}" method="POST" th:object="${staff}">
     <div th:each="role : ${jobTitles}">
         <input type="radio" id="choose" name="1" th:field="*{jobTitles}" th:value="${role}">
-        <label for="choose" th:text="${role}"></label>
+        <label for="choose" th:text="${role.getTranslate()}"></label>
     </div>
 <input type="hidden" th:value="${staff.idStaff}" th:name="idStaff">
 <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"><br>

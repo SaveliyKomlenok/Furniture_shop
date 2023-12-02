@@ -29,10 +29,11 @@ public class Staff implements UserDetails{
     private Long idStaff;
 
     @Column(name = "full_name")
-    @Pattern(regexp = "^[А-ЯЁ][а-яё]+\\s[А-ЯЁ][а-яё]+\\s[А-ЯЁ][а-яё]+", message = "Некорректное ФИО, введите ФИО в формате: ФАМИЛИЯ ИМЯ ОТЧЕСТВО")
+    @Pattern(regexp = "^[А-ЯЁ][а-яё]+\\s[А-ЯЁ][а-яё]+\\s[А-ЯЁ][а-яё]+", message = "Некорректное ФИО, введите ФИО в формате: Фамилия Имя Отчество")
     private String fullName;
 
     @Column(name = "login")
+    @Pattern(regexp = "^[A-Za-z]*\\d*", message = "Неккоректный логин, пример логина: login123")
     private String login;
 
     @Column(name = "password")

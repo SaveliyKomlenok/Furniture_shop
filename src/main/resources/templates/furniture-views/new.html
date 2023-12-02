@@ -4,40 +4,46 @@
     <title>Furniture store</title>
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
+<header>
+    <div style="float: left">
+        <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
+    </div>
+</header>
 <body>
 <h3>Добавление мебели</h3>
 <form th:method="POST" th:action="@{/furniture/create}" th:object="${furniture}">
 
-    <label for="name">Название мебели: </label>
+    <label for="name">Название</label><br>
     <input type="text" th:field="*{nameOfFurniture}" id="name" required/>
     <div style="color: red" th:if="${#fields.hasErrors('nameOfFurniture')}" th:errors="*{nameOfFurniture}">Name error</div>
     <br>
 
-    <label for="price">Цена: </label>
+    <label for="price">Цена</label><br>
     <input type="number" min="3" max="5000" th:field="*{priceOfFurniture}" id="price" step="0.01" required/>
     <div style="color: red" th:if="${#fields.hasErrors('priceOfFurniture')}" th:errors="*{priceOfFurniture}">Name error</div>
     <br>
 
-    <label for="size">Размеры мебели: </label>
+    <label for="size">Размеры мебели</label><br>
     <select th:object="${furniture.size}" th:field="*{id_size}" id="size">
-        <option disabled selected value=""> Выберите размеры </option>
+        <option disabled selected value=""> Выберите </option>
         <option th:each="size : ${sizes}" th:value="${size.getId_size()}"
                 th:text="${size.getLength()} + 'X' +
                          ${size.getWidth()} + 'X' +
                          ${size.getLength()}"></option>
     </select><br>
 
-    <label for="rooms">Комната в которой должна находится мебель: </label>
+    <label for="rooms">Комната</label><br>
     <select th:object="${furniture.rooms}" th:field="*{id_rooms}" id="rooms">
-        <option disabled selected value=""> Выберите комнату </option>
+        <option disabled selected value=""> Выберите </option>
         <option th:each="room : ${rooms}" th:value="${room.getId_rooms()}"
                 th:text="${room.getNameOfRoom()}"></option>
     </select><br>
 
-    <label for="manufacturer">Изготовитель: </label>
+    <label for="manufacturer">Изготовитель</label><br>
     <select th:object="${furniture.manufacturer}" th:field="*{id_manufacturer}" id="manufacturer">
-        <option disabled selected value=""> Выберите изготовителя </option>
+        <option disabled selected value=""> Выберите </option>
         <option th:each="maufacturer : ${manufacturers}" th:value="${maufacturer.getId_manufacturer()}"
                 th:text="${maufacturer.getNameOfManufacturer()}"></option>
     </select><br>

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long> {
-    List<Staff> findByFullNameContaining(String fullName);
-    Staff findByLoginContaining(String login);
+    List<Staff> findByFullNameStartingWith(String fullName);
     Staff findStaffByLogin(String login);
+    Staff findStaffByPhoneNumberStartingWith(String phoneNumber);
 }

@@ -2,9 +2,11 @@
 <html lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Sales furniture</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/linkStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -12,8 +14,7 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Sales furniture</h1>
-<h4>Продажи мебели</h4>
+<h1>Продажи мебели</h1>
 <form th:action="@{/sales}" th:method="GET" th:object="${sale}">
     <label for="search">Поиск по дате продажи мебели: </label>
     <input type="date" th:field="*{dateOfSales}" id="search"/>
@@ -25,13 +26,11 @@
         <tr>
             <th>Дата продажи</th>
             <th>Ф.И.О.</th>
-            <th>Подробная инф.</th>
         </tr>
-        <tr th:each="sale : ${sales}">
-            <td th:text="${sale.dateOfSales}"></td>
+        <tr th:each="sale : ${sales}" class="tr_body">
+            <td><a th:href="@{/sales/{id_sales}(id_sales=${sale.getId_sales()})}" th:text="${sale.dateOfSales}"></a></td>
             <td th:if="${sale.staff != null}" th:text="${sale.staff.fullName}"></td>
             <td th:unless="${sale.staff != null}" th:text="'Работник уволен'"></td>
-            <td><a th:href="@{/sales/{id_sales}(id_sales=${sale.getId_sales()})}">Подробнее...</a></td>
         </tr>
     </table>
 </div>

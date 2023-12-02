@@ -20,7 +20,7 @@ public class SalesService {
     private final FurnitureService furnitureService;
 
     public List<Sales> listSales(String dateOfSales) {
-        if (dateOfSales != null) return salesRepository.findByDateOfSalesContaining(dateOfSales);
+        if (dateOfSales != null) return salesRepository.findByDateOfSalesStartingWith(dateOfSales);
         return salesRepository.findAll();
     }
 
@@ -60,10 +60,10 @@ public class SalesService {
                 .stream()
                 .filter(o -> o.getFurniture().getId_furniture().equals(furniture.getId_furniture())).findFirst();
         if (soldFurniture.isPresent()) {
-            Sales finalSupply = sale;
+            Sales newSupply = sale;
             soldFurniture.map(p -> {
                 p.setAmount(p.getAmount() + amountOfFurniture);
-                return finalSupply;
+                return newSupply;
             });
         } else {
             sale = addNewFurnitureInSale(sale, furnitureService.getFurnitureById(id_furniture), amountOfFurniture);

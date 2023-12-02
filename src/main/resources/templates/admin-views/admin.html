@@ -12,8 +12,7 @@
         <a href="/"><img width="45" height="40" src="/static/styles/emblemNumber2.png"></a>
     </div>
 </header>
-<h1>Staff</h1>
-<h4 th:text="'Работник(ца) ' + ${staff.fullName}"></h4>
+<h3 th:text="'Работник(ца) ' + ${staff.fullName}"></h3>
 
 <b>Логин: </b><span th:text="${staff.login}"></span><br>
 <b>Номер телефона: </b><span th:text="${staff.phoneNumber}"></span><br>
@@ -22,7 +21,7 @@
 <span th:unless="${staff.active}">Заблокирован(а)</span><br>
 <b>Роль:</b>
 <span th:each="role : ${staff.getJobTitles()}">
-    <span th:text="${role}"></span>
+    <span th:text="${role.getTranslate()}"></span>
 </span><br>
 
 <div th:if="${!staff.isAdmin()}">

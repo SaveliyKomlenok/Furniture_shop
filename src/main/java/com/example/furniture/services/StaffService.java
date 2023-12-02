@@ -20,8 +20,6 @@ public class StaffService {
     private final StaffRepository staffRepository;
     private final PasswordEncoder passwordEncoder;
     public void createStaff(Staff staff){
-        String login = staff.getLogin();
-        if(staffRepository.findByLoginContaining(login) != null) return;
         staff.setActive(true);
         staff.setPassword(passwordEncoder.encode(staff.getPassword()));
         staff.getJobTitles().add(JobTitle.ROLE_USER);
@@ -29,7 +27,7 @@ public class StaffService {
     }
 
     public List<Staff> listStaff(String fullName){
-        if(fullName != null) return  staffRepository.findByFullNameContaining(fullName);
+        if(fullName != null) return  staffRepository.findByFullNameStartingWith(fullName);
         return staffRepository.findAll();
     }
 
@@ -70,7 +68,7 @@ public class StaffService {
 
     public Staff getStaffByPrincipal(Principal principal) {
         if (principal == null) return new Staff();
-        return staffRepository.findByLoginContaining(principal.getName());
+        return staffRepository.findStaffByLogin(principal.getName());
     }
 
     public void editStaff(Long id_staff, Staff staff) {

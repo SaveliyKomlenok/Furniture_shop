@@ -1,3 +1,8 @@
+html {
+    font-family: Candara, serif;
+    font-size: 18px;
+}
+
 body {
     background-image: url("mainBG.jpg");
     background-size: 100%;

@@ -13,6 +13,6 @@ public class CustomStaffDetailsService implements UserDetailsService {
     private final StaffRepository staffRepository;
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        return staffRepository.findByLoginContaining(login);
+        return staffRepository.findStaffByLogin(login);
     }
 }

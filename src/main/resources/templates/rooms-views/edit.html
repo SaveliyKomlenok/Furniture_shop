@@ -4,6 +4,7 @@
     <title>Furniture store</title>
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -15,7 +16,7 @@
 <br>
 <form th:method="POST" th:action="@{/rooms/{id_rooms}/editInformation(id_rooms=${room.getId_rooms()})}" th:object="${room}">
 
-    <label for="create">Название комнаты: </label>
+    <label for="create">Название</label><br>
     <input type="text" th:field="*{nameOfRoom}" id="create" required/>
     <div style="color: red" th:if="${#fields.hasErrors('nameOfRoom')}" th:errors="*{nameOfRoom}">Name error</div>
     <br>

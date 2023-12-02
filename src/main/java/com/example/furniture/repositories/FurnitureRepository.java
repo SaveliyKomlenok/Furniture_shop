@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface FurnitureRepository extends JpaRepository<Furniture, Long> {
-    List<Furniture> findFurnitureByNameOfFurnitureContaining(String nameOfFurniture);
+    List<Furniture> findFurnitureByNameOfFurnitureStartingWith(String nameOfFurniture);
     Furniture findFurnitureByNameOfFurnitureAndPriceOfFurnitureAndSizeAndRoomsAndManufacturer(String nameOfFurniture,
                                                                                                double priceOfFurniture,
                                                                                                Size size, Rooms rooms, Manufacturer manufacturer);

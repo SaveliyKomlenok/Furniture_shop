@@ -20,7 +20,7 @@ public class SuppliesService {
     private final SuppliedFurnitureRepository suppliedFurnitureRepository;
 
     public List<Supplies> listSupplies(String dateOfSupplies){
-        if(dateOfSupplies!=null) return suppliesRepository.findByDateOfSuppliesContaining(dateOfSupplies);
+        if(dateOfSupplies!=null) return suppliesRepository.findByDateOfSuppliesStartingWith(dateOfSupplies);
         return suppliesRepository.findAll();
     }
 
@@ -42,7 +42,7 @@ public class SuppliesService {
     }
 
     public Supplies deleteNewSuppliedFurniture(int indexNewSuppliedFurniture, Supplies supply){
-        supply.getSuppliedFurnitureToSupplies().remove(indexNewSuppliedFurniture);
+        supply.getSuppliedFurnitureToSupplies().remove(supply.getSuppliedFurnitureToSupplies().get(indexNewSuppliedFurniture));
         return supply;
     }
 

@@ -4,6 +4,7 @@
     <title>Furniture store</title>
     <link rel="stylesheet" type="text/css" href="/static/styles/backgroundForPages.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/buttonStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/inputStyle.css">
 </head>
 <body>
 <header>
@@ -15,17 +16,17 @@
 <br>
 <form th:method="POST" th:action="@{/manufacturer/{id_manufacturer}/editInformation(id_manufacturer=${manufacturer.getId_manufacturer()})}" th:object="${manufacturer}">
 
-    <label for="name">Наименование изготовителя: </label>
+    <label for="name">Наименование</label><br>
     <input type="text" th:field="*{nameOfManufacturer}" id="name" required/>
     <div style="color: red" th:if="${#fields.hasErrors('nameOfManufacturer')}" th:errors="*{nameOfManufacturer}">Name error</div>
     <br>
 
-    <label for="address">Адрес изготовителя: </label>
+    <label for="address">Адрес</label><br>
     <input type="text" th:field="*{addressOfManufacturer}" id="address" required/>
     <div style="color: red" th:if="${#fields.hasErrors('addressOfManufacturer')}" th:errors="*{addressOfManufacturer}">Name error</div>
     <br>
 
-    <label for="phoneNumber">Номер телефона изготовителя: </label>
+    <label for="phoneNumber">Номер телефона</label><br>
     <input type="text" th:field="*{phoneNumberOfManufacturer}" id="phoneNumber" required/>
     <div style="color: red" th:if="${#fields.hasErrors('phoneNumberOfManufacturer')}" th:errors="*{phoneNumberOfManufacturer}">Name error</div>
     <br>

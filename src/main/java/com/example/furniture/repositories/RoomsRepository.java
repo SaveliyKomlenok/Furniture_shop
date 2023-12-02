@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface RoomsRepository extends JpaRepository<Rooms, Long> {
-    List<Rooms> findRoomsByNameOfRoomContaining(String nameOfRoom);
+    List<Rooms> findRoomsByNameOfRoomStartingWith(String nameOfRoom);
 
     Rooms findRoomsByNameOfRoom(String nameOfRoom);
 }

@@ -20,8 +20,10 @@ public class Furniture {
     @Column(name = "id_furniture")
     private Long id_furniture;
 
-    @Pattern(regexp = "^([A-ЯЁа-яё]+)(\\s|-)?([A-ЯЁа-яё]+)", message = "Поле должно содержать только буквы")
-    @javax.validation.constraints.Size(min = 3, max = 200, message = "Длина названия должна быть между 3 и 200 символами")
+    @Pattern(regexp = "^([A-ЯЁа-яё]+)(\\s|-)?([A-ЯЁа-яё]+)",
+            message = "Поле должно содержать только буквы")
+    @javax.validation.constraints.Size(min = 3, max = 200,
+            message = "Длина названия должна быть между 3 и 200 символами")
     @Column(name = "name_of_furniture")
     private String nameOfFurniture;
 
