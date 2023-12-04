@@ -1,11 +1,13 @@
 package com.example.furniture.services;
 
+import com.example.furniture.models.Furniture;
 import com.example.furniture.models.Manufacturer;
 import com.example.furniture.repositories.ManufacturerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,6 +19,16 @@ public class ManufacturerService {
     public List<Manufacturer> listManufacturer(String nameOfManufacturer){
         if(nameOfManufacturer != null) return manufacturerRepository.findManufacturerByNameOfManufacturerStartingWith(nameOfManufacturer);
         return manufacturerRepository.findAll();
+    }
+
+    public List<Manufacturer> sortManufacturerByName(List<Manufacturer> manufacturerList, boolean isSorted){
+        if(isSorted){
+            manufacturerList.sort(Comparator.comparing(Manufacturer::getNameOfManufacturer));
+        }
+        else{
+            manufacturerList.sort(Comparator.comparing(Manufacturer::getNameOfManufacturer).reversed());
+        }
+        return manufacturerList;
     }
 
     public void saveManufacturer(Manufacturer manufacturer){

@@ -24,10 +24,13 @@ public class SalesController {
     Sales newSale;
 
     @GetMapping()
-    public String sale(@RequestParam(name = "dateOfSales", required = false) String dateOfSales, Model model, Principal principal,
-                       @ModelAttribute("sale") Sales sales) {
-        model.addAttribute("sales", salesService.listSales(dateOfSales));
+    public String sale(@RequestParam(name = "dateOfSales", required = false) String dateOfSales,
+                       @RequestParam(name = "isSorted", required = false) boolean isSorted,
+                       Model model, Principal principal, @ModelAttribute("sale") Sales sales) {
+        model.addAttribute("sales", salesService.sortSalesByDate(salesService.listSales(dateOfSales), isSorted));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
+        model.addAttribute("dateOfSales", dateOfSales);
+        model.addAttribute("isSorted", isSorted);
         return "sales-views/index";
     }
 

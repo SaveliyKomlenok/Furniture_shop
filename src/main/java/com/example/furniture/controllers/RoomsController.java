@@ -26,10 +26,12 @@ public class RoomsController {
 
     @GetMapping()
     public String rooms(@RequestParam(name = "nameOfRoomForSearch", required = false, defaultValue = "") String nameOfRoom,
+                        @RequestParam(name = "isSorted", required = false) boolean isSorted,
                         Model model, Principal principal, @ModelAttribute("room") Rooms rooms) {
-        model.addAttribute("rooms", roomsService.listRooms(nameOfRoom));
+        model.addAttribute("rooms", roomsService.sortRoomsByName(roomsService.listRooms(nameOfRoom), isSorted));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
         model.addAttribute("nameOfRoomForSearch", nameOfRoom);
+        model.addAttribute("isSorted", isSorted);
         return "rooms-views/index";
     }
 

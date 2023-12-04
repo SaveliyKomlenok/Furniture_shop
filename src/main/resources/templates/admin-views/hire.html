@@ -22,10 +22,10 @@
 
 <div th:unless="${staffs.isEmpty()}">
     <table>
-        <tr class="">
+        <tr>
             <th>Ф.И.О.</th>
             <th>Номер телефона</th>
-            <th>Нанять <br>на работу</th>
+            <th>Нанять на работу</th>
         </tr>
         <tr th:each="staff : ${allStaffs}" th:if="${staff.isUser()}" class="tr_body">
             <td th:text="${staff.fullName}"></td>

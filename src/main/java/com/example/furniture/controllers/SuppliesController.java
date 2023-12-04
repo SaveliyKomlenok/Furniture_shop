@@ -28,10 +28,13 @@ public class SuppliesController {
 
     Supplies newSupply;
     @GetMapping()
-    public String supply(@RequestParam(name = "dateOfSupplies", required = false) String  dateOfSupplies, Model model, Principal principal,
-                         @ModelAttribute("supply") Supplies supply) {
+    public String supply(@RequestParam(name = "dateOfSupplies", required = false) String  dateOfSupplies,
+                         @RequestParam(name = "isSorted", required = false) boolean isSorted,
+                         Model model, Principal principal, @ModelAttribute("supply") Supplies supply) {
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
-        model.addAttribute("supplies", suppliesService.listSupplies(dateOfSupplies));
+        model.addAttribute("supplies", suppliesService.sortSuppliesByDate(suppliesService.listSupplies(dateOfSupplies), isSorted));
+        model.addAttribute("dateOfSupplies", dateOfSupplies);
+        model.addAttribute("isSorted", isSorted);
         return "supplies-views/index";
     }
 

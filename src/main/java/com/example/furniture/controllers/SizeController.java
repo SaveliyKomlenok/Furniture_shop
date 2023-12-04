@@ -23,9 +23,11 @@ public class SizeController {
 
     @GetMapping()
     public String size(@RequestParam(name = "id_size", required = false) Long id_size,
+                       @RequestParam(name = "isSorted", required = false) boolean isSorted,
                        Model model, Principal principal, @ModelAttribute("size") Size size) {
-        model.addAttribute("sizes", sizeService.listSize(id_size));
+        model.addAttribute("sizes", sizeService.sortSizesByAllParameters(sizeService.listSize(id_size), isSorted));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
+        model.addAttribute("isSorted", isSorted);
         return "size-views/index";
     }
 

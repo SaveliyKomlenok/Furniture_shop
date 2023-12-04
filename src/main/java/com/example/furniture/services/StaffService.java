@@ -31,6 +31,16 @@ public class StaffService {
         return staffRepository.findAll();
     }
 
+    public List<Staff> sortStaffByFullName(List<Staff> staffList, boolean isSorted){
+        if(isSorted){
+            staffList.sort(Comparator.comparing(Staff::getFullName));
+        }
+        else{
+            staffList.sort(Comparator.comparing(Staff::getFullName).reversed());
+        }
+        return staffList;
+    }
+
     public void deleteStaff(Long id_staff){
         staffRepository.deleteById(id_staff);
     }

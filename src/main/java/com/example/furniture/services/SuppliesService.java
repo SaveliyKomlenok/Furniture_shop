@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,16 @@ public class SuppliesService {
     public List<Supplies> listSupplies(String dateOfSupplies){
         if(dateOfSupplies!=null) return suppliesRepository.findByDateOfSuppliesStartingWith(dateOfSupplies);
         return suppliesRepository.findAll();
+    }
+
+    public List<Supplies> sortSuppliesByDate(List<Supplies> suppliesList, boolean isSorted){
+        if(isSorted){
+            suppliesList.sort(Comparator.comparing(Supplies::getDateOfSupplies));
+        }
+        else{
+            suppliesList.sort(Comparator.comparing(Supplies::getDateOfSupplies).reversed());
+        }
+        return suppliesList;
     }
 
     public Supplies addNewFurnitureInSupply(Supplies supply, Furniture furniture, int amountOfFurniture){

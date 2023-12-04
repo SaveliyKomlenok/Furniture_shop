@@ -5,7 +5,6 @@ import com.example.furniture.repositories.FurnitureRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,6 +22,9 @@ public class FurnitureService {
     public List<Furniture> sortFurnitureByName(List<Furniture> furnitureList, boolean isSorted){
         if(isSorted){
             furnitureList.sort(Comparator.comparing(Furniture::getNameOfFurniture));
+        }
+        else{
+            furnitureList.sort(Comparator.comparing(Furniture::getNameOfFurniture).reversed());
         }
         return furnitureList;
     }

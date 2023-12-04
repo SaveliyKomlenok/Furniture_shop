@@ -15,11 +15,21 @@
     </div>
 </header>
 <h1>Продажи мебели</h1>
-<form th:action="@{/sales}" th:method="GET" th:object="${sale}">
+<form th:action="@{/sales}" th:method="GET">
     <label for="search">Поиск по дате продажи мебели: </label>
-    <input type="date" th:field="*{dateOfSales}" id="search"/>
+    <input type="date" th:value="${dateOfSales}" name="dateOfSales" id="search"/>
     <button type="submit">Поиск</button>
 </form>
+
+<form th:method="GET" th:action="@{/sales}">
+    <div style="float: left; margin-top: 10px">
+        Сортировка по дате
+    </div>
+    <input id="sort" th:if="${isSorted.equals(true)}" type="checkbox" name="isSorted" checked onclick="form.submit()">
+    <input id="unSort" th:unless="${isSorted.equals(true)}" type="checkbox" name="isSorted" onclick="form.submit()">
+    <input type="hidden" th:value="${dateOfSales}" name="dateOfSales"/>
+</form>
+<br>
 
 <div th:unless="${sales.isEmpty()}">
     <table>
@@ -40,13 +50,11 @@
 </div>
 
 <div th:if="${staff.isSeller()}">
-    <h3>Начать продажу мебели</h3>
     <form th:action="@{/sales/startCreate}" th:method="GET">
         <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
         <button type="submit">Продать мебель</button>
     </form>
 </div>
-
 
 </body>
 </html>

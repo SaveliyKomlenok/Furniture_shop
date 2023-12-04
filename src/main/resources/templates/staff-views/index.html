@@ -21,10 +21,20 @@
     <button type="submit">Поиск</button>
 </form>
 
+<form th:method="GET" th:action="@{/staff}">
+    <div style="float: left; margin-top: 10px">
+        Сортировка по ФИО
+    </div>
+    <input id="sort" th:if="${isSorted.equals(true)}" type="checkbox" name="isSorted" checked onclick="form.submit()">
+    <input id="unSort" th:unless="${isSorted.equals(true)}" type="checkbox" name="isSorted" onclick="form.submit()">
+    <input type="hidden" th:value="${fullNameForSearch}" name="fullNameForSearch"/>
+</form>
+<br>
+
 <div th:unless="${staffs.isEmpty()}">
     <table>
         <tr>
-            <th>Ф.И.О.</th>
+            <th>ФИО</th>
             <th>Номер телефона</th>
         </tr>
         <tr th:each="staff : ${staffs}" th:unless="${staff.isUser()}" class="tr_body">

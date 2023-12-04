@@ -21,6 +21,16 @@
     <button type="submit">Поиск</button>
 </form>
 
+<form th:method="GET" th:action="@{/manufacturer}">
+    <div style="float: left; margin-top: 10px">
+        Сортировка по наименованию
+    </div>
+    <input id="sort" th:if="${isSorted.equals(true)}" type="checkbox" name="isSorted" checked onclick="form.submit()">
+    <input id="unSort" th:unless="${isSorted.equals(true)}" type="checkbox" name="isSorted" onclick="form.submit()">
+    <input type="hidden" th:value="${nameOfManufacturerForSearch}" name="nameOfManufacturerForSearch"/>
+</form>
+<br>
+
 <div th:if="${!manufacturers.isEmpty()}">
     <table>
         <tr>

@@ -17,9 +17,19 @@
 <h1>Поставки мебели</h1>
 <form th:action="@{/supplies}" th:method="GET" th:object="${supply}">
     <label for="search">Поиск по дате поставки мебели: </label>
-    <input type="date" th:field="*{dateOfSupplies}" id="search"/>
+    <input type="date" th:value="${dateOfSupplies}" name="dateOfSupplies" id="search"/>
     <button type="submit">Поиск</button>
 </form>
+
+<form th:method="GET" th:action="@{/supplies}">
+    <div style="float: left; margin-top: 10px">
+        Сортировка по дате
+    </div>
+    <input id="sort" th:if="${isSorted.equals(true)}" type="checkbox" name="isSorted" checked onclick="form.submit()">
+    <input id="unSort" th:unless="${isSorted.equals(true)}" type="checkbox" name="isSorted" onclick="form.submit()">
+    <input type="hidden" th:value="${dateOfSupplies}" name="dateOfSupplies"/>
+</form>
+<br>
 
 <div th:unless="${supplies.isEmpty()}">
     <table>

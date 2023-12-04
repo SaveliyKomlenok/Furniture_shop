@@ -1,11 +1,13 @@
 package com.example.furniture.services;
 
+import com.example.furniture.models.Manufacturer;
 import com.example.furniture.models.Rooms;
 import com.example.furniture.repositories.RoomsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,6 +19,16 @@ public class RoomsService {
     public List<Rooms> listRooms(String nameOfRoom){
         if(nameOfRoom != null) return roomsRepository.findRoomsByNameOfRoomStartingWith(nameOfRoom);
         return roomsRepository.findAll();
+    }
+
+    public List<Rooms> sortRoomsByName(List<Rooms> roomsList, boolean isSorted){
+        if(isSorted){
+            roomsList.sort(Comparator.comparing(Rooms::getNameOfRoom));
+        }
+        else{
+            roomsList.sort(Comparator.comparing(Rooms::getNameOfRoom).reversed());
+        }
+        return roomsList;
     }
 
     public void saveRooms(Rooms rooms){

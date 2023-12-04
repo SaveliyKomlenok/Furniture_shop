@@ -1,6 +1,5 @@
 package com.example.furniture.controllers;
 
-import com.example.furniture.models.Manufacturer;
 import com.example.furniture.models.Staff;
 import com.example.furniture.services.StaffService;
 import com.example.furniture.util.StaffValidator;
@@ -22,10 +21,12 @@ public class StaffController {
     public Staff staff;
 
     @GetMapping("/staff")
-    public String staff(@RequestParam(name = "fullNameForSearch", required = false) String fullName, Model model,
-                        @ModelAttribute("staff") Staff staff) {
-        model.addAttribute("staffs", staffService.listStaff(fullName));
+    public String staff(@RequestParam(name = "fullNameForSearch", required = false) String fullName,
+                        @RequestParam(name = "isSorted", required = false) boolean isSorted,
+                        Model model, @ModelAttribute("staff") Staff staff) {
+        model.addAttribute("staffs", staffService.sortStaffByFullName(staffService.listStaff(fullName), isSorted));
         model.addAttribute("fullNameForSearch", fullName);
+        model.addAttribute("isSorted", isSorted);
         return "staff-views/index";
     }
 

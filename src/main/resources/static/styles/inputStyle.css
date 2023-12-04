@@ -9,7 +9,7 @@ input {
 }
 
 input:focus {
-
+    border-color: red;
 }
 
 select {
@@ -24,4 +24,12 @@ select {
 
 select.decorated option:hover {
     box-shadow: 0 0 10px 100px #d94854 inset;
+}
+
+input[type="checkbox"]{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    margin-top: 8px
 }

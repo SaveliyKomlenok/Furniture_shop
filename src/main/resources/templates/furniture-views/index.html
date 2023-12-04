@@ -21,6 +21,15 @@
     <button type="submit">Поиск</button>
 </form>
 
+<form th:method="GET" th:action="@{/furniture}">
+    <div style="float: left; margin-top: 10px">
+        Сортировка по названию
+    </div>
+    <input id="sort" th:if="${isSorted.equals(true)}" type="checkbox" name="isSorted" checked onclick="form.submit()">
+    <input id="unSort" th:unless="${isSorted.equals(true)}" type="checkbox" name="isSorted" onclick="form.submit()">
+    <input type="hidden" th:value="${nameOfFurnitureForSearch}" name="nameOfFurnitureForSearch"/>
+</form>
+<br>
 <div th:if="${!furnitures.isEmpty()}">
     <table>
         <tr class="tr_head">

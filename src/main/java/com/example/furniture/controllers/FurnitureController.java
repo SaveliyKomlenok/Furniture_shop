@@ -1,7 +1,6 @@
 package com.example.furniture.controllers;
 
 import com.example.furniture.models.Furniture;
-import com.example.furniture.repositories.FurnitureRepository;
 import com.example.furniture.services.*;
 import com.example.furniture.util.FurnitureValidator;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +26,12 @@ public class FurnitureController {
 
     @GetMapping()
     public String furniture(@RequestParam (name = "nameOfFurnitureForSearch", required = false) String nameOfFurniture,
-                            @RequestParam (name = "isSorted", required = false) Boolean isSorted,
+                            @RequestParam (name = "isSorted", required = false) boolean isSorted,
                             Model model, Principal principal) {
         model.addAttribute("furnitures", furnitureService.sortFurnitureByName(furnitureService.listFurniture(nameOfFurniture), isSorted));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
         model.addAttribute("nameOfFurnitureForSearch", nameOfFurniture);
+        model.addAttribute("isSorted", isSorted);
         return "furniture-views/index";
     }
 

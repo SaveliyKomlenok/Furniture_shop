@@ -24,10 +24,13 @@ public class ManufacturerController {
     private final StaffService staffService;
 
     @GetMapping()
-    public String manufacturer(@RequestParam(name = "nameOfManufacturerForSearch", required = false, defaultValue = "") String nameOfManufacturer, Model model, Principal principal) {
-        model.addAttribute("manufacturers", manufacturerService.listManufacturer(nameOfManufacturer));
+    public String manufacturer(@RequestParam(name = "nameOfManufacturerForSearch", required = false) String nameOfManufacturer,
+                               @RequestParam(name = "isSorted", required = false) boolean isSorted,
+                               Model model, Principal principal) {
+        model.addAttribute("manufacturers", manufacturerService.sortManufacturerByName(manufacturerService.listManufacturer(nameOfManufacturer), isSorted));
         model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
         model.addAttribute("nameOfManufacturerForSearch", nameOfManufacturer);
+        model.addAttribute("isSorted", isSorted);
         return "manufacturer-views/index";
     }
 

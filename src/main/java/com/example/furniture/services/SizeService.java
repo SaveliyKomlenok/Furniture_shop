@@ -1,11 +1,13 @@
 package com.example.furniture.services;
 
+import com.example.furniture.models.Sales;
 import com.example.furniture.models.Size;
 import com.example.furniture.repositories.SizeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -16,6 +18,16 @@ public class SizeService {
 
     public List<Size> listSize(Long id_size){
         return sizeRepository.findAll();
+    }
+
+    public List<Size> sortSizesByAllParameters(List<Size> sizeList, boolean isSorted){
+        if(isSorted){
+            sizeList.sort(Comparator.comparing(Size::getLength).thenComparing(Size::getWidth).thenComparing(Size::getHeight));
+        }
+        else{
+            sizeList.sort(Comparator.comparing(Size::getLength).thenComparing(Size::getWidth).thenComparing(Size::getHeight).reversed());
+        }
+        return sizeList;
     }
 
     public void saveSize(Size size){
