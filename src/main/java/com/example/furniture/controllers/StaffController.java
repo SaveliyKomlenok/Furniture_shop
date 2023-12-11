@@ -4,6 +4,7 @@ import com.example.furniture.models.Staff;
 import com.example.furniture.services.StaffService;
 import com.example.furniture.util.StaffValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ public class StaffController {
 
     public Staff staff;
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping("/staff")
     public String staff(@RequestParam(name = "fullNameForSearch", required = false) String fullName,
                         @RequestParam(name = "isSorted", required = false) boolean isSorted,
@@ -30,35 +32,36 @@ public class StaffController {
         return "staff-views/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping("/staff/{id_staff}")
     public String staffInfo(@PathVariable Long id_staff, Model model) {
         model.addAttribute("staff", staffService.getStaffById(id_staff));
         return "staff-views/info";
     }
 
-    @GetMapping("/personalArea/{id_staff}")
-    public String personalArea(@PathVariable Long id_staff, Model model) {
-        model.addAttribute("staff", staffService.getStaffById(id_staff));
+    @GetMapping("/personalArea")
+    public String personalArea(Model model, Principal principal) {
+        model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
         return "staff-views/personal-area";
     }
 
-    @GetMapping("/staff/{id_staff}/startOwnEdit")
-    public String startEditOwnInformation(@PathVariable(value = "id_staff") Long id_staff, Model model){
-        model.addAttribute("staff", staffService.getStaffById(id_staff));
+    @GetMapping("/staff/startOwnEdit")
+    public String startEditOwnInformation(Model model, Principal principal){
+        model.addAttribute("staff", staffService.getStaffByPrincipal(principal));
         return "staff-views/own-edit";
     }
 
-    @PostMapping("/staff/{id_staff}/ownEdit")
-    public String editOwnInformation(@PathVariable(name = "id_staff")Long id_staff,
-                                                 @ModelAttribute("staff") @Valid Staff staff, BindingResult bindingResult) {
+    @PostMapping("/staff/ownEdit")
+    public String editOwnInformation(@ModelAttribute("staff") @Valid Staff staff, BindingResult bindingResult, Principal principal) {
         staffValidator.validate(staff, bindingResult);
         if(bindingResult.hasErrors()){
             return "staff-views/own-edit";
         }
-        staffService.editStaff(id_staff, staff);
-        return "redirect:/personalArea/{id_staff}";
+        staffService.editStaff(staffService.getStaffByPrincipal(principal).getIdStaff(), staff);
+        return "redirect:/login";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PostMapping("/staff/delete/{id_staff}")
     public String deleteManufacturer(@PathVariable Long id_staff) {
         staffService.deleteStaff(id_staff);

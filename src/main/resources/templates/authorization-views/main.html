@@ -10,7 +10,7 @@
 
 <h1>Мебельный магазин</h1>
 
-<p><a th:href="@{/personalArea/{idStaff}(idStaff=${staff.getIdStaff()})}"> Личный кабинет </a></p>
+<p><a th:href="@{/personalArea}"> Личный кабинет </a></p>
 <p><a th:href="@{/furniture}"> Мебель </a></p>
 
 <div th:if="${staff.isAdmin()}">

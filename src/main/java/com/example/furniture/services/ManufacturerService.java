@@ -25,9 +25,6 @@ public class ManufacturerService {
         if(isSorted){
             manufacturerList.sort(Comparator.comparing(Manufacturer::getNameOfManufacturer));
         }
-        else{
-            manufacturerList.sort(Comparator.comparing(Manufacturer::getNameOfManufacturer).reversed());
-        }
         return manufacturerList;
     }
 

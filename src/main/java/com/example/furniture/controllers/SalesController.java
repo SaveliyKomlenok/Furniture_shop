@@ -6,6 +6,7 @@ import com.example.furniture.services.FurnitureService;
 import com.example.furniture.services.SalesService;
 import com.example.furniture.services.StaffService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/sales")
+@PreAuthorize("hasAnyAuthority('ROLE_SELLER')")
 public class SalesController {
     private final SalesService salesService;
     private final FurnitureService furnitureService;

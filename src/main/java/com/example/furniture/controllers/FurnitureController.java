@@ -4,6 +4,7 @@ import com.example.furniture.models.Furniture;
 import com.example.furniture.services.*;
 import com.example.furniture.util.FurnitureValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/furniture")
+@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_SELLER', 'ROLE_MANAGER', 'ROLE_USER')")
 public class FurnitureController {
     private final FurnitureService furnitureService;
     private final ManufacturerService manufacturerService;
@@ -42,6 +44,7 @@ public class FurnitureController {
         return "furniture-views/info";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/new")
     public String newFurniture(Model model, @ModelAttribute("furniture") Furniture furniture) {
         model.addAttribute("furnitures", furnitureService.listFurniture(null));
@@ -49,6 +52,7 @@ public class FurnitureController {
         return "furniture-views/new";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/create")
     public String createFurniture(@ModelAttribute("furniture") @Valid Furniture furniture, BindingResult bindingResult, Model model) {
         furnitureValidator.validate(furniture, bindingResult);
@@ -60,12 +64,14 @@ public class FurnitureController {
         return "redirect:/furniture";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/delete/{id_furniture}")
     public String deleteFurniture(@PathVariable Long id_furniture) {
         furnitureService.deleteFurniture(id_furniture);
         return "redirect:/furniture";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/{id_furniture}/edit")
     public String startEditFurniture(@PathVariable(value = "id_furniture") Long id_furniture, Model model, Principal principal){
         model.addAttribute("furniture", furnitureService.getFurnitureById(id_furniture));
@@ -75,6 +81,7 @@ public class FurnitureController {
         return "furniture-views/edit";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/{id_furniture}/editInformation")
     public String editFurniture(@PathVariable (value = "id_furniture") Long id_furniture, Model model, Principal principal,
                                 @Valid Furniture furniture, BindingResult bindingResult){

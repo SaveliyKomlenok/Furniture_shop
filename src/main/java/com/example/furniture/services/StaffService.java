@@ -35,9 +35,6 @@ public class StaffService {
         if(isSorted){
             staffList.sort(Comparator.comparing(Staff::getFullName));
         }
-        else{
-            staffList.sort(Comparator.comparing(Staff::getFullName).reversed());
-        }
         return staffList;
     }
 

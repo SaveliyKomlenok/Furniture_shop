@@ -8,6 +8,7 @@ import com.example.furniture.services.StaffService;
 import com.example.furniture.util.RoomsValidator;
 import lombok.Lombok;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
+@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_SELLER', 'ROLE_MANAGER')")
 public class RoomsController {
     private final RoomsService roomsService;
     private final RoomsValidator roomsValidator;
@@ -35,6 +37,7 @@ public class RoomsController {
         return "rooms-views/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/create")
     public String createRoom(@ModelAttribute("room") @Valid Rooms rooms, BindingResult bindingResult, Model model, Principal principal) {
         roomsValidator.validate(rooms, bindingResult);
@@ -47,6 +50,7 @@ public class RoomsController {
         return "redirect:/rooms";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/delete")
     public String deleteRoom(@RequestParam(name = "id_rooms", required = false) Long id_rooms, Model model, Principal principal,
                              @ModelAttribute("room") @Valid Rooms rooms, BindingResult bindingResult) {
@@ -60,6 +64,7 @@ public class RoomsController {
         return "redirect:/rooms";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/{id_rooms}/edit")
     public String startEditRoom(@PathVariable(value = "id_rooms") Long id_room, Model model, Principal principal){
         model.addAttribute("room", roomsService.getRoomsById(id_room));
@@ -67,6 +72,7 @@ public class RoomsController {
         return "rooms-views/edit";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/{id_rooms}/editInformation")
     public String editRoom(@PathVariable(value = "id_rooms") Long id_room, Model model, Principal principal,
                            @ModelAttribute("room") @Valid Rooms room, BindingResult bindingResult){

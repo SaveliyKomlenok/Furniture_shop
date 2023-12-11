@@ -5,6 +5,7 @@ import com.example.furniture.services.SizeService;
 import com.example.furniture.services.StaffService;
 import com.example.furniture.util.SizeValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/size")
+@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_SELLER')")
 public class SizeController {
     private final SizeService sizeService;
     private final StaffService staffService;
@@ -31,6 +33,7 @@ public class SizeController {
         return "size-views/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/create")
     public String createSize(@Valid Size size, BindingResult bindingResult, Model model, Principal principal) {
         sizeValidator.validate(size, bindingResult);
@@ -43,6 +46,7 @@ public class SizeController {
         return "redirect:/size";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/delete")
     public String deleteSize(@RequestParam(name = "id_size", required = false) Long id_size, Model model, Principal principal,
                              @ModelAttribute("size") @Valid Size size, BindingResult bindingResult) {
@@ -56,6 +60,7 @@ public class SizeController {
         return "redirect:/size";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/{id_size}/edit")
     public String startEditSize(@PathVariable(value = "id_size") Long id_size, Model model, Principal principal) {
         model.addAttribute("size", sizeService.getSizeById(id_size));
@@ -63,6 +68,7 @@ public class SizeController {
         return "size-views/edit";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/{id_size}/editInformation")
     public String editRoom(@PathVariable(value = "id_size") Long id_size, Model model, Principal principal,
                            @ModelAttribute("size") @Valid Size size, BindingResult bindingResult) {

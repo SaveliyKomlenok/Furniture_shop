@@ -29,9 +29,6 @@ public class SalesService {
         if(isSorted){
             salesList.sort(Comparator.comparing(Sales::getDateOfSales));
         }
-        else{
-            salesList.sort(Comparator.comparing(Sales::getDateOfSales).reversed());
-        }
         return salesList;
     }
 

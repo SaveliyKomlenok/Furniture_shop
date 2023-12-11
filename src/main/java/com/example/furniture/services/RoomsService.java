@@ -25,9 +25,6 @@ public class RoomsService {
         if(isSorted){
             roomsList.sort(Comparator.comparing(Rooms::getNameOfRoom));
         }
-        else{
-            roomsList.sort(Comparator.comparing(Rooms::getNameOfRoom).reversed());
-        }
         return roomsList;
     }
 

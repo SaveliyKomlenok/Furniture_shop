@@ -7,6 +7,7 @@ import com.example.furniture.services.FurnitureService;
 import com.example.furniture.services.StaffService;
 import com.example.furniture.services.SuppliesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/supplies")
+@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
 public class SuppliesController {
     private final StaffController staffController;
 
@@ -44,6 +46,7 @@ public class SuppliesController {
         return "supplies-views/info";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/startCreate")
     public String startSupplyCreation(Model model, @ModelAttribute("furniture") Furniture furniture){
         newSupply = new Supplies();
@@ -58,6 +61,7 @@ public class SuppliesController {
         return "supplies-views/new";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/create")
     public String supplyCreation(Model model, @ModelAttribute("furniture") Furniture furniture) {
         model.addAttribute("supply", newSupply);
@@ -65,12 +69,14 @@ public class SuppliesController {
         return "supplies-views/new";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/addFurniture")
     public String createSuppliedFurniture(@RequestParam(name = "id_furniture", required = false) Long id_furniture, int amountOfFurniture) {
         newSupply = suppliesService.addFurnitureToSupply(newSupply, id_furniture, amountOfFurniture);
         return "redirect:/supplies/create";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/save")
     public String saveSupplies(){
         newSupply.setStaff(staffController.staff);
@@ -78,12 +84,14 @@ public class SuppliesController {
         return "redirect:/supplies";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/delete/{id_supplies}")
     public String deleteSupply(@PathVariable Long id_supplies) {
         suppliesService.deleteSupplies(id_supplies);
         return "redirect:/supplies";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/delete/{new_index}")
     public String deleteNewSuppliedFurniture(@PathVariable int new_index) {
         newSupply = suppliesService.deleteNewSuppliedFurniture(new_index, newSupply);

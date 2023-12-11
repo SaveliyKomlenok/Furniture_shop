@@ -23,9 +23,6 @@ public class FurnitureService {
         if(isSorted){
             furnitureList.sort(Comparator.comparing(Furniture::getNameOfFurniture));
         }
-        else{
-            furnitureList.sort(Comparator.comparing(Furniture::getNameOfFurniture).reversed());
-        }
         return furnitureList;
     }
 

@@ -24,9 +24,6 @@ public class SizeService {
         if(isSorted){
             sizeList.sort(Comparator.comparing(Size::getLength).thenComparing(Size::getWidth).thenComparing(Size::getHeight));
         }
-        else{
-            sizeList.sort(Comparator.comparing(Size::getLength).thenComparing(Size::getWidth).thenComparing(Size::getHeight).reversed());
-        }
         return sizeList;
     }
 
